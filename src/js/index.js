@@ -1,4 +1,5 @@
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import {elements,renderLoader,clearLoader} from './views/base';
 
@@ -39,6 +40,8 @@ elements.searchForm.addEventListener('submit', e=>{
   controlSearch();
 })
 
+
+
 elements.searchResPages.addEventListener('click', e=>{  /* use closest to click button element itself no any other child elements spang/svg */
   const btn = e.target.closest('.btn-inline');
   if(btn){
@@ -47,3 +50,46 @@ elements.searchResPages.addEventListener('click', e=>{  /* use closest to click 
     searchView.renderResults(state.search.result, goToPage);
   }
 })
+
+
+/***
+RECIPE CONTROLLER
+***/
+
+const controlRecipe = async()=>{
+  //1 Get ID from url
+  const id = window.location.hash.replace('#', '');
+
+  if(id){
+    //2 Prepare UI for change
+
+
+    //3 Create new recipe object
+    state.recipe = new Recipe(id);
+
+
+    try{
+      //4 Get recipe data and parseIngredient
+      await state.recipe.getRecipe();
+      state.recipe.parseIngredients();
+      state.recipe.calcTime();
+      state.recipe.calcServings();
+
+      //5 Render recipe
+      console.log(state.recipe)
+    } catch(err){
+      alert('Error processing recipe!!!!!')
+    }
+
+  }
+
+}
+
+['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe))
+// window.addEventListener('hashchange', controlRecipe);
+// window.addEventListener('load', controlRecipe);
+//
+// // /* if we reload the page, nothing will happen.  Because this only happens
+// // whenever the hash actually change.  But if user save this URL here as a bookmark
+// // and then when he comes back nothing will really happen. So we need to add a
+// // eventlistener to load event */

@@ -1,2 +1,2 @@
 export const proxy = 'https://cors-anywhere.herokuapp.com/';
-export const key = 'enter your api key';
+export const key = 'Enter Your API KEY';
