@@ -15,6 +15,15 @@ export const clearResults = () =>{
   elements.searchResPages.innerHTML='';
 }
 
+//9
+export const HighlightSelected = id =>{
+  const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+  resultsArr.map(el=>{
+    return el.classList.remove('results__link--active');
+  })
+  document.querySelector(`.results__link[href="#${id}"]`).classList.add(`results__link--active`)
+}
+
 
 
 //3
@@ -35,7 +44,7 @@ export const renderRecipe = recipe =>{
   elements.searchResList.insertAdjacentHTML('beforeend', markup)
 }
 
-//9 type 'prev' or 'next'  create button function for renderButtons use
+//8 type 'prev' or 'next'  create button function for renderButtons use
     /* in button we also use a dataset -> data-goto for eventlistener use */
 const createButton = (page, type) => `
      <button class="btn-inline results__btn--${type}" data-goto=${type==='prev' ? page-1 : page+1}>
@@ -47,7 +56,7 @@ const createButton = (page, type) => `
 `;
 
 
-//8
+//7
 /* page 是頁數 / pages 是總頁數 */ //cuz we will use the same buttons to html code so create outside function to be central use
 
 const renderButtons =(page, numResults, resPerPage) =>{ //in this case we have numResults = 30 and would like to resPerPage 10/perpage
@@ -108,7 +117,3 @@ const limitRecipeTitle = (title, limit = 17) =>{
     return title;
   }
 }
-
-
-
-//7

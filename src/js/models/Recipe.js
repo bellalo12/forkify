@@ -58,16 +58,16 @@ export default class Recipe {
 
         let count;
         if(arrCount.length === 1){
-          count = eval(arrIng[0].replace('-', '+'));
+          count = arrIng[0].replace('-', ' ');
         } else {
-          count = eval(arrIng.slice(0, unitIndex).join('+'))
+          count = arrIng.slice(0, unitIndex).join(' ')
         }
 
         objIng ={
           count: count,
           unit: arrIng[unitIndex],
           ingredient: arrIng.slice(unitIndex + 1).join(' ')   //unitIndex(tsb)的位置再加一才是ingredient
-          
+
         }
 
       }else if(parseInt(arrIng[0], 10)){
