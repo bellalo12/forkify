@@ -16,7 +16,7 @@ export const clearResults = () =>{
 }
 
 //9
-export const HighlightSelected = id =>{
+export const highlightSelected = id =>{
   const resultsArr = Array.from(document.querySelectorAll('.results__link'));
   resultsArr.map(el=>{
     return el.classList.remove('results__link--active');

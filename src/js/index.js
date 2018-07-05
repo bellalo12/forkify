@@ -67,7 +67,7 @@ const controlRecipe = async()=>{
     renderLoader(elements.recipe);
 
     //3 Highlight selected search item
-    if(state.search) searchView.HighlightSelected(id);
+    if(state.search) searchView.highlightSelected(id);     /* use if statement to show if there was a search, then one of the search item can be selected */
 
 
     //4 Create new recipe object
@@ -83,14 +83,13 @@ const controlRecipe = async()=>{
 
       //6 Render recipe
       clearLoader();
-      recipeView.renderRecipe(state.recipe)
+      recipeView.renderRecipe(state.recipe);
+
     } catch(err){
       alert('Error processing recipe!!!!!')
     }
-
   }
-
-}
+};
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe))
 // window.addEventListener('hashchange', controlRecipe);
@@ -100,3 +99,22 @@ const controlRecipe = async()=>{
 // // whenever the hash actually change.  But if user save this URL here as a bookmark
 // // and then when he comes back nothing will really happen. So we need to add a
 // // eventlistener to load event */
+
+
+
+
+elements.recipe.addEventListener('click', e=>{
+      //Decrease button is clicked
+   if(e.target.matches('.btn-decrease, .btn-decrease *')){
+     /* .btn-decrease * means include its child elements such as <svg> <use> */
+
+     if(state.recipe.servings > 1){
+         state.recipe.updateServings('dec');
+         recipeView.updateServingsIngredients(state.recipe)
+     }
+   } else if(e.target.matches('.btn-increase, .btn-increase *')){
+     // Increase button is clicked
+     state.recipe.updateServings('inc');
+     recipeView.updateServingsIngredients(state.recipe)
+   } 
+ })
