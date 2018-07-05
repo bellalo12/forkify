@@ -8,7 +8,7 @@ export const clearRecipe = () =>{
 
 //4
 /*將小數轉回分數*/
-const formatCount = (count) =>{
+const formatCount = count =>{
   //fraction分數 / decimal小數 / integer整數 / numerator分子 /denominatro分母
   if(count){
     // count = 2.5 --> 5/2 --> 2 1/2
@@ -93,7 +93,7 @@ export const renderRecipe = recipe => {
           ${recipe.ingredients.map(el=>createIngredient(el)).join('')}
       </ul>
 
-      <button class="btn-small recipe__btn">
+      <button class="btn-small recipe__btn recipe__btn--add">
           <svg class="search__icon">
               <use href="img/icons.svg#icon-shopping-cart"></use>
           </svg>
