@@ -1,6 +1,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import List from './models/List';
+import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
@@ -148,6 +149,47 @@ elements.shopping.addEventListener('click', e=>{
  }
 })
 
+
+
+
+/***
+LIKE CONTROLLER
+***/
+const controlLike =()=>{
+  if(!state.likes) state.likes = new Likes();
+  const currentID = state.recipe.id;
+
+  //User has NOT YET liked
+  if(!state.likes.isLiked(currentID)){
+    //Add like to the state
+    const newLike = state.likes.addLike(
+      currentID,
+      state.recipe.title,
+      state.recipe.author,
+      state.recipe.img
+    )
+
+    //Toggle the like button
+
+    //Add like to UI list
+    console.log(state.likes)
+
+
+  } else {
+    //Remove like to the state
+     state.likes.deleteLike(currentID)
+    //Toggle the like button
+
+    //Remove like from the UI list
+    console.log(state.likes)
+  }
+
+}
+
+
+
+
+
 // Handling recipe button clicks
 /* use matches() instead of closest() because there are different elements we might want to click on
 such as increase button decrease button like button add list button not just only a btn-inline like above*/
@@ -164,7 +206,13 @@ elements.recipe.addEventListener('click', e=>{
      // Increase button is clicked
      state.recipe.updateServings('inc');
      recipeView.updateServingsIngredients(state.recipe)
+
+     //Add Ingredients to shopping list
    } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')){
      controlList();
+
+     //Add like button
+   } else if (e.target.matches('.recipe__love, .recipe__love *')){
+     controlLike();
    }
  })
