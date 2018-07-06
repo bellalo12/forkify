@@ -102,7 +102,7 @@ export const renderResults = (recipes, page=1, resPerPage=10) =>{
 
 
 //4
-const limitRecipeTitle = (title, limit = 17) =>{
+export const limitRecipeTitle = (title, limit = 17) =>{
   const newTitle=[];
   if(title.length > limit){
     title.split(' ').reduce((acc, cur)=>{
